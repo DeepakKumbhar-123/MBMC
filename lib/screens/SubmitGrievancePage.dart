@@ -20,7 +20,7 @@ class _SubmitGrievancePageState extends State<SubmitGrievancePage> {
   XFile? _selectedImage;
   String? _location;
 
-  final List<String> _categories = ['Road Issue', 'Water Problem', 'Electricity'];
+  final List<String> _categories = ['Road Issue', 'Water Problem', 'Electricity','Solid waste management','Air quality:'];
 
   @override
   void initState() {
@@ -130,7 +130,6 @@ class _SubmitGrievancePageState extends State<SubmitGrievancePage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,7 +145,7 @@ class _SubmitGrievancePageState extends State<SubmitGrievancePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Complaint Category
+                // Complaint Category Dropdown
                 DropdownButtonFormField2(
                   decoration: InputDecoration(
                     labelText: 'Complaint Category',
@@ -163,7 +162,8 @@ class _SubmitGrievancePageState extends State<SubmitGrievancePage> {
                   onChanged: (value) {
                     _selectedCategory = value as String?;
                   },
-                  validator: (value) => value == null ? 'Please select a category' : null,
+                  validator: (value) =>
+                  value == null ? 'Please select a category' : null,
                 ),
                 const SizedBox(height: 16),
 

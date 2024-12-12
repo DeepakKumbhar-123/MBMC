@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'InProgressTaskPage.dart';  // Import the InProgressTaskPage
+import 'RejectedTask.dart';
+   // Import the RejectedTaskPage
 
 class AdminGrievancePage extends StatefulWidget {
   @override
@@ -9,6 +11,8 @@ class AdminGrievancePage extends StatefulWidget {
 
 class _AdminGrievancePageState extends State<AdminGrievancePage> {
   final DatabaseReference _grievancesRef = FirebaseDatabase.instance.ref().child('grievances');
+  final DatabaseReference _inProgressRef = FirebaseDatabase.instance.ref().child('inProgress');
+  final DatabaseReference _rejectedRef = FirebaseDatabase.instance.ref().child('rejected');
   List<Map<String, dynamic>> _grievances = [];
 
   @override
@@ -17,8 +21,9 @@ class _AdminGrievancePageState extends State<AdminGrievancePage> {
     _fetchGrievances();
   }
 
+  // Fetch grievances from Firebase
   void _fetchGrievances() {
-    _grievancesRef.onValue.listen((event) {
+    _grievancesRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value as Map<dynamic, dynamic>?;
       if (data != null) {
         setState(() {
@@ -32,6 +37,25 @@ class _AdminGrievancePageState extends State<AdminGrievancePage> {
       }
     });
   }
+
+  // Move grievance to InProgress or Rejected based on the status
+  void _moveGrievance(String key, String status) {
+    _grievancesRef.child(key).once().then((DatabaseEvent snapshot) {
+      if (snapshot.snapshot.exists) {
+        final grievance = snapshot.snapshot.value as Map<dynamic, dynamic>;
+        if (status == 'Approved') {
+          // Move to InProgress
+          _inProgressRef.child(key).set(grievance);
+          _grievancesRef.child(key).remove();  // Remove from grievances list
+        } else if (status == 'Rejected') {
+          // Move to Rejected
+          _rejectedRef.child(key).set(grievance);
+          _grievancesRef.child(key).remove();  // Remove from grievances list
+        }
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +88,23 @@ class _AdminGrievancePageState extends State<AdminGrievancePage> {
                       errorBuilder: (context, error, stackTrace) =>
                           Text('Image not available'),
                     ),
+                ],
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.check, color: Colors.green),
+                    onPressed: () {
+                      _moveGrievance(grievance['key'], 'Approved');
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.close, color: Colors.red),
+                    onPressed: () {
+                      _moveGrievance(grievance['key'], 'Rejected');
+                    },
+                  ),
                 ],
               ),
             ),

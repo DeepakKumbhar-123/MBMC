@@ -14,8 +14,8 @@ class Splashscreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/MBMC-removebg.png"),
-                fit: BoxFit.contain,
+                image: AssetImage("assets/images/background_image.jpg"),
+                fit: BoxFit.fitHeight,
               ),
             ),
             child: BackdropFilter(
@@ -29,11 +29,20 @@ class Splashscreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // Mira Bhayander logo
+                Image.asset(
+                  'assets/images/MBMC-removebg.png',
+                  height: 200, // Adjust height as needed
+                  width: 200,  // Adjust width as needed
+                ),
+                SizedBox(height: 16),
+
+                // Mira Bhayander text
                 Text(
                   'मिरा भाईंदर',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 45  ,
+                    fontSize: 45,
                     fontWeight: FontWeight.w500,
                   ),
                   textAlign: TextAlign.center,
@@ -47,7 +56,9 @@ class Splashscreen extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 24),
+
+                // Governance tagline
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
@@ -78,7 +89,6 @@ class Splashscreen extends StatelessWidget {
     );
   }
 
-  // Function to show the bottom sheet
   void _showRoleSelectionBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -86,7 +96,8 @@ class Splashscreen extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (BuildContext context) {
-        return Padding(
+        return Container(
+          width: MediaQuery.of(context).size.width, // Full width
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -140,6 +151,7 @@ class Splashscreen extends StatelessWidget {
       },
     );
   }
+
 }
 
 class FieldOfficerLoginPage extends StatefulWidget {
