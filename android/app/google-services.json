@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "368128411900",
+    "project_id": "mbmctrial-app",
+    "storage_bucket": "mbmctrial-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368128411900:android:689e597450f38e3fb7ef79",
+        "android_client_info": {
+          "package_name": "com.MBMC.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARA2nz6l3R1J3vwP2R-b9FXzpb52J9bt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368128411900:android:702afd88f41e09dcb7ef79",
+        "android_client_info": {
+          "package_name": "com.example.mbmc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARA2nz6l3R1J3vwP2R-b9FXzpb52J9bt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
